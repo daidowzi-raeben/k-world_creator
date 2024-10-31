@@ -1,0 +1,306 @@
+/* You can add global styles to this file, and also import other style files */
+
+$gutter: 1rem; //for primeflex grid system
+@import '@/assets/layout/layout.scss';
+
+/* PrimeVue */
+// @import 'primevue/resources/primevue.min.css'; // version deplicated. You must open the command line if you are using < 3.29.00
+@import 'primeflex/primeflex.scss';
+@import 'primeicons/primeicons.css';
+
+/* Demos */
+@import '@/assets/demo/demo.scss';
+
+.p-button.p-button-outlined{
+    background-color:#fff;
+}
+.p-radiobutton + label{
+    margin:0 15px 0 5px;
+}
+.p-rating-cancel-item{
+    display:none;
+}
+.p-button.lg{
+    font-size:1.1rem;
+    padding:.6rem 1.5rem;
+}
+.p-button{
+    white-space: nowrap;
+}
+.p-listbox-list{
+    height: 100px;
+    overflow:auto;
+}
+.p-calendar .p-inputtext{
+    width:145px;
+}
+.upload-custom{
+    width:100%;
+    .p-fileupload .p-fileupload-file{
+        display: inline-block;
+        width:150px;
+        margin-right: 10px;
+        position:relative;
+        .p-fileupload-file-thumbnail{
+            width:100px;
+            height:100px;
+            object-fit: cover;
+        }
+        .p-fileupload-file-name{
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .p-badge-warning{
+            display:none;
+        }
+        .p-button{
+            position:absolute;
+            right:0;
+            top:0;
+        }
+    }
+}
+.p-button.p-button-secondary{
+    background-color:#e1e8ef;
+}
+.p-tabmenu.sticky{
+    position:sticky;
+    left:0;
+    top:70px;
+    z-index: 10;
+}
+
+.wd-100{
+    width:100%;
+}
+.wd-sm{
+    width:100px;
+}
+
+.text-grey{
+    color:#999;
+}
+
+.layout-main-container{
+    min-width: calc(1140px - 4rem);
+}
+
+.thumb-img{
+    width:100px;
+    height:100px;
+    object-fit: cover;
+    &.sm{
+        width:50px;
+        height:50px;
+    }
+}
+
+.modal{
+    &-md{
+        width: 40%;
+    }
+}
+
+.table{
+    width:100%;
+    border-spacing:0;
+    border-bottom:1px solid $borderColor;
+    &-top{
+        display:flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom:10px;
+    }
+    &-wrap{
+        width:100%;
+        overflow: auto;
+        &.scroll{
+            max-height: 320px;
+            overflow-y: auto;
+            table{
+                border-bottom:none;
+            }
+            th{
+                position: sticky;
+                left: 0;
+                top: 0;
+                background-color: #fff;
+                border-bottom:1px solid $borderColor;
+            }
+            td{
+                border-top:none;
+                border-bottom:1px solid $borderColor;
+            }
+        }
+    }
+    th{
+        white-space: nowrap;
+    }
+    th, td{
+        text-align: center;
+        border-top:1px solid $borderColor;
+        padding:10px;
+        height:55px;
+        &.text-left{
+            text-align: left;
+        }
+        img{
+            height:85px;
+            max-height: 85px;
+            object-fit: cover;
+        }
+    }
+    &.sm{
+        th, td{
+            height:auto;
+        }
+    }
+    .btn-fold{
+        i{
+            font-size:18px;
+            color:#a8b5c2;
+            &.isActive{
+                transform:rotate(-90deg);
+            }
+        }
+    }
+    .fold{
+        background-color:#f0f2f5;
+        display:none;
+        &.isActive{
+            display:table-row;
+        }
+        .depth{
+            text-indent: 20px;
+            position:relative;
+            &:before{
+                content:"ㄴ";
+                position:absolute;
+                left:10px;
+                text-indent: 0;
+            }
+        }
+        // & + .fold .depth{
+        //     text-indent: 40px;
+        //     &:before{
+        //         left:30px;
+        //     }
+        // }
+    }
+    &-nodata{
+        text-align: center;
+        padding:20px;
+        border-bottom:1px solid $borderColor;
+        color:#98a7b5;
+    }
+}
+
+.search-wrap{
+    align-items: center;
+    border:1px solid $borderColor;
+    padding:.8rem 1rem;
+    margin:1rem 0 1.5rem;
+    border-radius: 10px;
+    justify-content: space-between;
+    .label{
+        white-space: nowrap;
+    }
+    .p-calendar{
+        width:170px;
+    }
+    .left{
+        display:flex;
+        align-items: center;
+        flex-wrap: wrap;
+        & > *{
+            margin-right:1rem;
+        }
+    }
+}
+
+.input{
+    &-wrap{
+        display:flex;
+        align-items: center;
+        min-height: 30px;
+        .label{
+            width:100px;
+            min-width: 100px;
+        }
+        & + .input-wrap{
+            margin-top:20px;
+        }
+        .scroll-box{
+            border:1px solid #e2e8f0;
+            padding:15px 20px;
+            border-radius: 5px;
+            display:flex;
+            flex-direction: column;
+            height:150px;
+            width:150px;
+            overflow: auto;
+            outline: none;
+            & + .scroll-box{
+                margin-left: 20px;
+            }
+            .btn{
+                text-align: left;
+                margin-bottom:10px;
+                transition:all .3s;
+                white-space: pre-wrap;
+                &:last-child{
+                    margin-bottom:0;
+                }
+                &:hover, &.isActive, &:checked{
+                    color:$colPrimary;
+                    background-color: transparent;
+                }
+            }
+        }
+    }
+}
+
+.btn{
+    background-color: transparent;
+    border:none;
+    padding:0;
+    cursor: pointer;
+    &-wrap{
+        margin-top:30px;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        .p-button{
+            margin:0 5px;
+        }
+    }
+}
+
+.color-check{
+    input{
+        width:0;
+        height:0;
+        position:absolute;
+        appearance: none;
+    }
+    .color{
+        width:30px;
+        height:30px;
+        display: inline-block;
+        cursor: pointer;
+        border-radius: 4px;
+        margin-right: 8px;
+        border:1px solid #dedede;
+    }
+    & + .btn{
+        font-size: 20px;
+        margin:0 8px 0 -4px;
+        vertical-align: super;
+    }
+}
+
+.list-none li{
+    word-break: break-all;
+}
