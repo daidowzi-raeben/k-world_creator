@@ -26,7 +26,7 @@
 
                     <div class="right mt-3">
                         <Button label="Search" class="mr-2" />
-                        <Button label="Reset" />
+                        <Button label="Reset" severity="secondary" />
                     </div>
                 </div>
 

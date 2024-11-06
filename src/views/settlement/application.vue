@@ -75,7 +75,7 @@ const closeConfirmation2 = () => {
                     <strong>1234-5678-9000000</strong>
                 </div>
                 <div class="flex justify-content-end">
-                    <Button label="modify" @click="openConfirmation2" class="ml-2" />
+                    <Button label="modify" @click="openConfirmation2" class="ml-2" severity="secondary" />
                     <Dialog header="Confirmation" v-model:visible="displayConfirmation2" :style="{ width: '500px' }" :modal="true">
                         <div class="flex align-items-center mt-2">
                             <label style="width:130px">Payee's Name</label>
