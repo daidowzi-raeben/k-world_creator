@@ -9094,10 +9094,10 @@
     background: #ECFDF5;
     border: none;
     border-width: 0px;
-    color: #059669;
+    color: #0045da;
   }
   .p-inline-message.p-inline-message-success .p-inline-message-icon {
-    color: #059669;
+    color: #0045da;
   }
   .p-inline-message.p-inline-message-warn {
     background: #FEF3C7;
@@ -9216,13 +9216,13 @@
     background: #ECFDF5;
     border: none;
     border-width: 0 0 0 6px;
-    color: #059669;
+    color: #0045da;
   }
   .p-message.p-message-success .p-message-icon {
-    color: #059669;
+    color: #0045da;
   }
   .p-message.p-message-success .p-message-close {
-    color: #059669;
+    color: #0045da;
   }
   .p-message.p-message-warn {
     background: #FEF3C7;
@@ -9392,11 +9392,11 @@
     background: #ECFDF5;
     border: none;
     border-width: 0 0 0 6px;
-    color: #059669;
+    color: #0045da;
   }
   .p-toast .p-toast-message.p-toast-message-success .p-toast-message-icon,
 .p-toast .p-toast-message.p-toast-message-success .p-toast-icon-close {
-    color: #059669;
+    color: #0045da;
   }
   .p-toast .p-toast-message.p-toast-message-warn {
     background: #FEF3C7;
@@ -10468,7 +10468,7 @@
       stroke: #2563EB;
     }
     66% {
-      stroke: #059669;
+      stroke: #0045da;
     }
     80%, 90% {
       stroke: #D97706;

@@ -5,78 +5,31 @@ import AppMenuItem from './AppMenuItem.vue';
 
 const model = ref([
     {
-        label: 'Home',
-        items: [{ label: '대시보드', to: '/' }]
+        label: 'HOME',
+        items: [{ label: 'Dashboard', to: '/' }]
     },
     {
-        label: 'Setting',
+        label: 'CONTENT',
         items: [
-            { label: '회원가입 약관 설정', to: '/setting/terms' },
-            { label: '서비스 이용약관 설정', to: '/setting/service' },
-            { label: '개인정보처리방침 설정', to: '/setting/private' }
-            // { label: '접근차단IP 설정', to: '/setting/ip' },
-            // { label: '메뉴 설정', to: '/setting/menu' }
+            { label: 'My Contents', to: '/content/list' },
+            { label: 'Recommended Contents', to: '/content/recommended' },
         ]
     },
     {
-        label: 'User',
+        label: 'SETTLEMENT',
         items: [
-            { label: 'User List', to: '/user/list' },
-            { label: 'Creator List', to: '/seller/list' }
-            // { label: '포인트내역', to: '/user/pointList' }
-            // { label: '회원승인', to: '/user/approval' },
-            // { label: '접속자 집계', to: '/user/visit' }
-        ]
-    },
-    // {
-    //     label: 'Creator',
-    //     items: [
-    //         // { label: '판매자 등록', to: '/seller/register' }
-    //     ]
-    // },
-    {
-        label: 'Event',
-        items: [{ label: 'Event List', to: '/event/list' }]
-    },
-    {
-        label: 'Shop',
-        items: [
-            // { label: '쇼핑몰 설정', to: '/shop/setting' },
-            { label: '주문내역', to: '/shop/order' },
-            // { label: '직원관리', to: '/shop/employee' },
-            { label: '분류관리', to: '/shop/category' },
-            { label: '상품관리', to: '/shop/productad' },
-            { label: '1:1 Inquiry', to: '/shop/qa' },
-            { label: '상품후기', to: '/shop/review' },
-            { label: 'FAQ', to: '/shop/faq' }
-
-            // { label: '상품재고관리', to: '/shop/inventory' },
-            // { label: '상품유형관리', to: '/shop/type' },
-            // { label: '추가배송비관리', to: '/shop/delivery' },
-            // { label: '미완료주문', to: '/shop/incomplete' }
+            { label: 'Settlement application', to: '/settlement/application' },
+            { label: 'Settlement history', to: '/settlement/history' },
         ]
     },
     {
-        label: 'Content',
-        items: [{ label: 'Content', to: '/content/list' }]
-    },
-    {
-        label: 'Policy',
+        label: 'COMMUNITY',
         items: [
-            { label: '배송안내', to: '/policy/delivery' },
-            { label: 'AS안내', to: '/policy/as' },
-            { label: '환불안내', to: '/policy/refund' },
-            { label: '교환안내', to: '/policy/exchange' }
+            { label: 'FAQ', to: '/community/faq' },
+            { label: 'Inquiry', to: '/community/inquiry' },
+            { label: 'Notice/Alarm', to: '/community/notice' },
         ]
     },
-    {
-        label: 'Sale',
-        items: [
-            { label: '매출정산', to: '/sale/calculate' },
-            { label: '상품판매순위', to: '/sale/ranking' }
-            // { label: '주문내역출력', to: '/sale/order' }
-        ]
-    }
     // {
     //     label: 'UI Components',
     //     items: [

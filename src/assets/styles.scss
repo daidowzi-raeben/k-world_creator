@@ -12,7 +12,7 @@ $gutter: 1rem; //for primeflex grid system
 @import '@/assets/demo/demo.scss';
 
 .p-button.p-button-outlined{
-    background-color:#fff;
+    // background-color:#fff;
 }
 .p-radiobutton + label{
     margin:0 15px 0 5px;
@@ -63,13 +63,17 @@ $gutter: 1rem; //for primeflex grid system
     }
 }
 .p-button.p-button-secondary{
-    background-color:#e1e8ef;
+    // background-color:#e1e8ef;
 }
 .p-tabmenu.sticky{
     position:sticky;
     left:0;
     top:70px;
     z-index: 10;
+}
+
+.p-dialog-header{
+    cursor: all-scroll;
 }
 
 .wd-100{
@@ -83,9 +87,9 @@ $gutter: 1rem; //for primeflex grid system
     color:#999;
 }
 
-.layout-main-container{
-    min-width: calc(1140px - 4rem);
-}
+// .layout-main-container{
+//     min-width: calc(1140px - 4rem);
+// }
 
 .thumb-img{
     width:100px;
@@ -218,6 +222,24 @@ $gutter: 1rem; //for primeflex grid system
             margin-right:1rem;
         }
     }
+    .flex{
+        @media screen and (max-width: 600px) {
+            flex-wrap: wrap;
+            .label{
+                width: 100%;
+                margin-bottom: .5rem;
+            }
+            .between{
+                display:none;
+            }
+            .p-calendar{
+                width: 100%;
+                &:last-child{
+                    margin-top:.5rem;
+                }
+            }
+        }
+    }
 }
 
 .input{
@@ -303,4 +325,15 @@ $gutter: 1rem; //for primeflex grid system
 
 .list-none li{
     word-break: break-all;
+}
+
+@media screen and (max-width: 960px) {
+    .p-dialog:not(.p-dialog-maximized) {
+        width: 85vw !important;
+    }
+}
+
+.p-inputnumber input{
+    width: 100%;
+    padding-right:30px;
 }

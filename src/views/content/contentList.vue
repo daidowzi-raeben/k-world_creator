@@ -2,55 +2,60 @@
     <div class="grid">
         <div class="col-12">
             <div class="card">
-                <h4><strong>Content list</strong></h4>
-                <!-- <div class="search-wrap grid">
+                <h4>My content</h4>
+                <div class="search-wrap grid pt-0 pb-3">
                     <div class="left">
-                        <label class="label">후기 검색</label>
-                        <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
-                        <Dropdown v-model="dropdownValue2" :options="dropdownValues2" optionLabel="name" placeholder="Select" />
-
-                        <div class="grid formgrid">
-                            <div class="col-12 mb-2 lg:col-6 lg:mb-0">
-                                <IconField iconPosition="left">
-                                    <InputText type="text" placeholder="Search" />
-                                    <InputIcon class="pi pi-search" />
-                                </IconField>
-                            </div>
+                        <div class="flex align-items-center mt-3">
+                            <label class="label mr-3">Title Search</label>
+                            <IconField iconPosition="left">
+                                <InputText type="text" placeholder="Search" />
+                                <InputIcon class="pi pi-search" />
+                            </IconField>
+                        </div>
+                        <div class="flex align-items-center mt-3">
+                            <label class="label mr-3">Period Search</label>
+                            <Calendar :showIcon="true" :yearNavigator="true" :showButtonBar="true" v-model="calendarValue" dateFormat="yy/mm/dd" placeholder="yyyy/mm/dd"></Calendar>
+                            <span class="between ml-2 mr-2">~</span>
+                            <Calendar :showIcon="true" :yearNavigator="true" :showButtonBar="true" v-model="calendarValue" dateFormat="yy/mm/dd" placeholder="yyyy/mm/dd"></Calendar>
+                        </div>
+                        <div class="flex align-items-center mt-3">
+                            <label class="label mr-3">Category Search</label>
+                            <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
                         </div>
                     </div>
 
-                    <div class="right">
+                    <div class="right mt-3">
                         <Button label="Search" class="mr-2" />
                         <Button label="Reset" />
                     </div>
-                </div> -->
+                </div>
 
                 <div class="table-top">
                     <div class="left">Total {{ CONTENT.LIST?.total }}</div>
                     <div class="right">
-                        <!-- <Button label="Add" severity="secondary" @click="router.push('/event/add')" /> -->
+                        <Dropdown v-model="dropdownValue2" :options="dropdownValues2" optionLabel="name" placeholder="Sort by" />
                     </div>
                 </div>
                 <div class="table-wrap">
                     <table class="table">
                         <tr>
                             <th>thumb</th>
-                            <th>item code</th>
                             <th>item name</th>
                             <th>title</th>
+                            <th>upload date</th>
+                            <th>category</th>
                             <th>like</th>
                             <th>view</th>
-                            <th>name</th>
                             <th>link</th>
-                            <th>use</th>
                         </tr>
                         <tr v-for="(v, i) in CONTENT.LIST?.data" :key="i">
-                            <td class="text-left" @click="router.push('/event/add?code=' + v?.idx)">
+                            <td @click="router.push('/event/add?code=' + v?.idx)">
                                 <img :src="v?.youtube_thumb" width="150" onerror="this.style='display:none';" />
                             </td>
-                            <td>{{ v?.goods_code }}</td>
-                            <td style="text-align: left">{{ v?.goods_name }}</td>
-                            <td style="text-align: left">{{ v?.youtube_title }}</td>
+                            <td style="text-align: left; min-width: 200px">{{ v?.goods_name }}</td>
+                            <td style="text-align: left; min-width: 200px">{{ v?.youtube_title }}</td>
+                            <td>업로드 날짜</td>
+                            <td>카테고리</td>
                             <td>
                                 {{ v?.view }} <br />
                                 ({{ v?.youtube_view }})
@@ -59,12 +64,9 @@
                                 {{ v?.view }} <br />
                                 ({{ v?.youtube_like }})
                             </td>
-                            <td style="text-align: left">{{ v?.mb_name }}</td>
-
                             <td>
                                 <Button label="go" outlined @click="onClickGotoUrl(v?.youtube_url)" />
                             </td>
-                            <td><Button :class="{ 'p-button-danger': v?.auth_yn === 'N' }" :label="v?.auth_yn === 'Y' ? 'enbled' : 'disabled'" outlined @click="onClickUseYn(v?.auth_yn, v?.idx)" /></td>
                         </tr>
                     </table>
                 </div>

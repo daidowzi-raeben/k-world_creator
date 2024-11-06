@@ -20,6 +20,7 @@
         "vue3-quill": "^0.3.1",
         "vue3-quill-editor-vite": "^0.0.5",
         "vue3-summernote-editor": "^1.0.2",
+        "vuewordcloud": "^19.0.0",
         "vuex": "^4.0.2"
     },
     "devDependencies": {

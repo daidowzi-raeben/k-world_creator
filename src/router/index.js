@@ -129,11 +129,6 @@ const router = createRouter({
                     component: () => import('@/views/shop/productReviewDetail.vue')
                 },
                 {
-                    path: '/shop/faq',
-                    name: 'productFaq',
-                    component: () => import('@/views/shop/productFaq.vue')
-                },
-                {
                     path: '/shop/faq/add',
                     name: 'productFaqdetail',
                     component: () => import('@/views/shop/productFaqDetail.vue')
@@ -147,11 +142,6 @@ const router = createRouter({
                     path: '/shop/productqa/detail',
                     name: 'productqadetail',
                     component: () => import('@/views/shop/productQaDetail.vue')
-                },
-                {
-                    path: '/content/list',
-                    name: 'contentList',
-                    component: () => import('@/views/content/contentList.vue')
                 },
                 {
                     path: '/shop/inventory',
@@ -340,7 +330,42 @@ const router = createRouter({
                     path: '/documentation',
                     name: 'documentation',
                     component: () => import('@/views/utilities/Documentation.vue')
-                }
+                },
+                {
+                    path: '/content/recommended',
+                    name: 'contentRecommended',
+                    component: () => import('@/views/content/contentRecommended.vue')
+                },
+                {
+                    path: '/content/list',
+                    name: 'contentList',
+                    component: () => import('@/views/content/contentList.vue')
+                },
+                {
+                    path: '/settlement/application',
+                    name: 'settlementApplication',
+                    component: () => import('@/views/settlement/application.vue')
+                },
+                {
+                    path: '/settlement/history',
+                    name: 'settlementHistory',
+                    component: () => import('@/views/settlement/history.vue')
+                },
+                {
+                    path: '/community/faq',
+                    name: 'communityFaq',
+                    component: () => import('@/views/community/faq.vue')
+                },
+                {
+                    path: '/community/inquiry',
+                    name: 'communityInquiry',
+                    component: () => import('@/views/community/inquiry.vue')
+                },
+                {
+                    path: '/community/notice',
+                    name: 'communityNotice',
+                    component: () => import('@/views/community/notice.vue')
+                },
             ]
         },
         {

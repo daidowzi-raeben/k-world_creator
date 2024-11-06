@@ -6,6 +6,15 @@ import { mapState, mapActions, mapMutations } from 'vuex';
 import axios from 'axios';
 const { isDarkTheme } = useLayout();
 
+const { layoutConfig } = useLayout();
+let documentStyle = getComputedStyle(document.documentElement);
+let textColor = documentStyle.getPropertyValue('--text-color');
+let textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
+let surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+
+const pieData = ref(null);
+const pieOptions = ref(null);
+
 const products = ref(null);
 const lineData = reactive({
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -77,7 +86,6 @@ const applyLightTheme = () => {
         }
     };
 };
-
 const applyDarkTheme = () => {
     lineOptions.value = {
         plugins: {
@@ -107,9 +115,7 @@ const applyDarkTheme = () => {
         }
     };
 };
-
 const ratingValue = ref(4);
-
 const mainPostData = async () => {
     try {
         // const response = await axios.post('/api/main.php', {
@@ -131,6 +137,37 @@ const mainPostData = async () => {
     }
 };
 
+const setColorOptions = () => {
+    documentStyle = getComputedStyle(document.documentElement);
+    textColor = documentStyle.getPropertyValue('--text-color');
+    textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
+    surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+};
+
+const setChart = () => {
+    pieData.value = {
+        labels: ['A', 'B', 'C'],
+        datasets: [
+            {
+                data: [540, 325, 702],
+                backgroundColor: [documentStyle.getPropertyValue('--indigo-500'), documentStyle.getPropertyValue('--purple-500'), documentStyle.getPropertyValue('--teal-500')],
+                hoverBackgroundColor: [documentStyle.getPropertyValue('--indigo-400'), documentStyle.getPropertyValue('--purple-400'), documentStyle.getPropertyValue('--teal-400')]
+            }
+        ]
+    };
+
+    pieOptions.value = {
+        plugins: {
+            legend: {
+                labels: {
+                    usePointStyle: true,
+                    color: textColor
+                }
+            }
+        }
+    };
+}
+
 mainPostData();
 
 watch(
@@ -141,81 +178,129 @@ watch(
         } else {
             applyLightTheme();
         }
+        
+        setColorOptions();
+        setChart();
     },
-    { immediate: true }
+    { immediate: true },
 );
 </script>
 
 <template>
     <div class="grid">
-        <div class="col-12 lg:col-6 xl:col-3">
-            <div class="card mb-0">
-                <div class="flex justify-content-between mb-3">
-                    <div>
-                        <span class="block text-500 font-medium mb-3">{{ mainData?.today }} 판매 수량</span>
-                        <div class="text-900 font-medium text-xl">
-                            {{ mainData?.sell }}
-                        </div>
-                    </div>
-                    <div class="flex align-items-center justify-content-center bg-blue-100 border-round" style="width: 2.5rem; height: 2.5rem">
-                        <i class="pi pi-shopping-cart text-blue-500 text-xl"></i>
-                    </div>
-                </div>
-                <span class="text-green-500 font-medium">{{ Number(mainData?.sell) - Number(mainData?.sellY) }} new </span>
-                <span class="text-500">전날 대비</span>
+        <div class="col-12">
+            <div class="card pt-0 pb-3">
+                <Button label="Daily" class="mr-3 mt-3" />
+                <Button label="Weekly" outlined class="mr-3 mt-3" />
+                <Button label="Monthly" outlined class="mr-3 mt-3" />
+                <Button label="Annual" outlined class="mr-3 mt-3" />
             </div>
         </div>
         <div class="col-12 lg:col-6 xl:col-3">
             <div class="card mb-0">
                 <div class="flex justify-content-between mb-3">
                     <div>
-                        <span class="block text-500 font-medium mb-3">{{ mainData?.today }} 회원가입 수</span>
+                        <span class="block text-500 font-medium mb-3">Import</span>
+                        <div class="text-900 font-medium text-xl">
+                            {{ mainData?.sell }}$
+                        </div>
+                    </div>
+                    <div class="flex align-items-center justify-content-center bg-blue-100 border-round" style="width: 2.5rem; height: 2.5rem">
+                        <i class="pi pi-dollar text-blue-500 text-xl"></i>
+                    </div>
+                </div>
+                <span class="text-red-500 font-medium">{{ Number(mainData?.sell) - Number(mainData?.sellY) }}$ less than</span>
+                <span class="text-500"> since last a day</span>
+            </div>
+        </div>
+        <div class="col-12 lg:col-6 xl:col-3">
+            <div class="card mb-0">
+                <div class="flex justify-content-between mb-3">
+                    <div>
+                        <span class="block text-500 font-medium mb-3">Sale</span>
                         <div class="text-900 font-medium text-xl">
                             {{ mainData?.members }}
                         </div>
                     </div>
                     <div class="flex align-items-center justify-content-center bg-orange-100 border-round" style="width: 2.5rem; height: 2.5rem">
-                        <i class="pi pi-map-marker text-orange-500 text-xl"></i>
+                        <i class="pi pi-shopping-cart text-orange-500 text-xl"></i>
                     </div>
                 </div>
-                <span class="text-green-500 font-medium">{{ Number(mainData?.members) - Number(mainData?.membersY) }} new</span>
-                <span class="text-500">전날 대비</span>
+                <span class="text-green-500 font-medium">{{ Number(mainData?.members) - Number(mainData?.membersY) }} more than</span>
+                <span class="text-500"> since last a day</span>
             </div>
         </div>
         <div class="col-12 lg:col-6 xl:col-3">
             <div class="card mb-0">
                 <div class="flex justify-content-between mb-3">
                     <div>
-                        <span class="block text-500 font-medium mb-3">1:1 Inquiry</span>
+                        <span class="block text-500 font-medium mb-3">Views</span>
                         <div class="text-900 font-medium text-xl">{{ Number(mainData?.request) }}</div>
                     </div>
                     <div class="flex align-items-center justify-content-center bg-cyan-100 border-round" style="width: 2.5rem; height: 2.5rem">
-                        <i class="pi pi-inbox text-cyan-500 text-xl"></i>
+                        <i class="pi pi-eye text-cyan-500 text-xl"></i>
                     </div>
                 </div>
-                <span class="text-green-500 font-medium">{{ Number(mainData?.request) - Number(mainData?.requestY) }} </span>
-                <span class="text-500">답변 완료</span>
+                <span class="text-green-500 font-medium">{{ Number(mainData?.request) - Number(mainData?.requestY) }} more than</span>
+                <span class="text-500"> since last a day</span>
             </div>
         </div>
         <div class="col-12 lg:col-6 xl:col-3">
             <div class="card mb-0">
                 <div class="flex justify-content-between mb-3">
                     <div>
-                        <span class="block text-500 font-medium mb-3">Content</span>
-                        <div class="text-900 font-medium text-xl">{{ mainData?.content_cnt }} Upload</div>
+                        <span class="block text-500 font-medium mb-3">Likes</span>
+                        <div class="text-900 font-medium text-xl">{{ mainData?.content_cnt }}</div>
                     </div>
-                    <div class="flex align-items-center justify-content-center bg-purple-100 border-round" style="width: 2.5rem; height: 2.5rem">
-                        <i class="pi pi-comment text-purple-500 text-xl"></i>
+                    <div class="flex align-items-center justify-content-center bg-pink-100 border-round" style="width: 2.5rem; height: 2.5rem">
+                        <i class="pi pi-heart text-pink-500 text-xl"></i>
                     </div>
                 </div>
-                <span class="text-green-500 font-medium">{{ mainData?.content_cnt_today }} </span>
-                <span class="text-500">Today</span>
+                <span class="text-green-500 font-medium">{{ mainData?.content_cnt_today }} more than</span>
+                <span class="text-500"> since last a day</span>
             </div>
         </div>
 
         <div class="col-12 xl:col-6">
             <div class="card">
-                <h5>{{ mainData?.today }} 판매순위</h5>
+                <h5>Top-selling category</h5>
+                <div class="card flex flex-column align-items-center">
+                    <Chart type="doughnut" :data="pieData" :options="pieOptions"></Chart>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 xl:col-6">
+            <div class="card">
+                <h5>Most sold Hashtags</h5>
+
+                <div class="grid align-items-center">
+                    <div class="col-12 xl:col-7 xl:ml-5 pt-5 pb-0">
+                        <vue-word-cloud
+                            style="height: 343px; width: 100%;"
+                            :words="[['romance', 15], ['Excellent', 10], ['horror', 3], ['fantasy', 7], ['adventure', 3]]"
+                            :color="([, weight]) => weight > 10 ? 'DeepPink' : weight > 5 ? 'RoyalBlue' : 'Indigo'"
+                            font-family="Inter var"
+                            font-weight="600"
+                        />
+                    </div>
+                    <div class="col-12 xl:col-3 xl:ml-5 pb-0">
+                        <ul class="p-0 m-0 list-none">
+                            <li class="align-items-center py-2 surface-border">
+                                <div v-for="(v, i) in str" :key="i" class="flex">
+                                    <div style="padding: 5px; width: 30px">{{ i + 1 }}</div>
+                                    <div style="padding: 5px" :style="i === 0 ? 'font-weight:bold' : ''">{{ v }}</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="col-12 xl:col-6">
+            <div class="card">
+                <h5>High-grossing videos</h5>
                 <DataTable :value="rankData" responsiveLayout="scroll">
                     <Column style="width: 10%">
                         <template #header> Rank </template>
@@ -229,88 +314,69 @@ watch(
                             <img :src="rankData[slotProps.index]?.img_url" :alt="slotProps?.img_url" width="50" class="shadow-2" />
                         </template>
                     </Column>
-                    <Column field="goods_name" header="Name" :sortable="true" style="width: 35%"></Column>
-                    <Column field="goods_amt" header="Price" :sortable="true" style="width: 10%; text-align: right">
+                    <Column style="width: 15%">
+                        <template #header> Product </template>
                         <template #body="slotProps">
-                            {{ rankData[slotProps.index]?.goods_amt }}
+                            <img :src="rankData[slotProps.index]?.img_url" :alt="slotProps?.img_url" width="50" class="shadow-2" />
                         </template>
                     </Column>
-                    <Column style="width: 15%">
-                        <template #header> View </template>
-                        <template #body>
-                            <Button icon="pi pi-search" type="button" class="p-button-text"></Button>
+                    <Column field="goods_name" header="Name" style="width: 50%; min-width:200px"></Column>
+                    <Column field="goods_amt" header="Price" style="width: 10%; text-align: right">
+                        <template #body="slotProps">
+                            {{ rankData[slotProps.index]?.goods_amt }}$
                         </template>
                     </Column>
                 </DataTable>
             </div>
-            <div class="card">
-                <div class="flex justify-content-between align-items-center mb-5">
-                    <h5>베스트 상품평</h5>
-                    <div>
-                        <Button icon="pi pi-ellipsis-v" class="p-button-text p-button-plain p-button-rounded" @click="$refs.menu2.toggle($event)"></Button>
-                        <Menu ref="menu2" :popup="true" :model="items"></Menu>
-                    </div>
-                </div>
-                <ul class="list-none p-0 m-0">
-                    <li v-for="(v, i) in bestRivew" :key="i" class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
-                        <div>
-                            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">{{ v?.goods_name }}</span>
-                            <div class="mt-1 text-600">{{ v?.content }}</div>
-                        </div>
-                        <div class="mt-2 md:mt-0 flex align-items-center ml-3">
-                            <Rating v-model="v.rate" readonly />
-                            <span class="ml-2">{{ v?.rate }}</span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
         </div>
-        <div class="col-12 xl:col-6">
+        <div class="col-12 xl:col-6 mb-5">
             <div class="card">
-                <h5>Sales Overview</h5>
-                <Chart type="line" :data="lineData" :options="lineOptions" />
-            </div>
-            <div class="card">
-                <div class="flex align-items-center justify-content-between mb-4">
-                    <h5>인기검색어</h5>
-                    <div>
-                        <Button icon="pi pi-ellipsis-v" class="p-button-text p-button-plain p-button-rounded" @click="$refs.menu1.toggle($event)"></Button>
-                        <Menu ref="menu1" :popup="true" :model="items"></Menu>
-                    </div>
-                </div>
-
-                <span class="block text-600 font-medium mb-3">TODAY</span>
-                <ul class="p-0 mx-0 mt-0 mb-4 list-none">
-                    <li class="align-items-center py-2 border-bottom-1 surface-border">
-                        <div v-for="(v, i) in str" :key="i" class="flex">
-                            <div style="padding: 5px; width: 30px">{{ i + 1 }}</div>
-                            <div style="padding: 5px" :style="i === 0 ? 'font-weight:bold' : ''">{{ v }}</div>
-                        </div>
-                    </li>
-                </ul>
-
-                <!-- <span class="block text-600 font-medium mb-3">YESTERDAY</span>
-                <ul class="p-0 m-0 list-none">
-                    <li class="flex align-items-center py-2 border-bottom-1 surface-border">
-                        <div class="w-3rem h-3rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
-                            <i class="pi pi-dollar text-xl text-blue-500"></i>
-                        </div>
-                        <span class="text-900 line-height-3"
-                            >Keyser Wick
-                            <span class="text-700">has purchased a black jacket for <span class="text-blue-500">59$</span></span>
-                        </span>
-                    </li>
-                    <li class="flex align-items-center py-2 border-bottom-1 surface-border">
-                        <div class="w-3rem h-3rem flex align-items-center justify-content-center bg-pink-100 border-circle mr-3 flex-shrink-0">
-                            <i class="pi pi-question text-xl text-pink-500"></i>
-                        </div>
-                        <span class="text-900 line-height-3"
-                            >Jane Davis
-                            <span class="text-700">has posted a new questions about your product.</span>
-                        </span>
-                    </li>
-                </ul> -->
+                <h5>Top-selling videos</h5>
+                <DataTable :value="rankData" responsiveLayout="scroll">
+                    <Column style="width: 10%">
+                        <template #header> Rank </template>
+                        <template #body="slotProps"
+                            ><div class="text-center">{{ slotProps.index + 1 }}</div></template
+                        >
+                    </Column>
+                    <Column style="width: 15%">
+                        <template #header> Image </template>
+                        <template #body="slotProps">
+                            <img :src="rankData[slotProps.index]?.img_url" :alt="slotProps?.img_url" width="50" class="shadow-2" />
+                        </template>
+                    </Column>
+                    <Column style="width: 15%">
+                        <template #header> Product </template>
+                        <template #body="slotProps">
+                            <img :src="rankData[slotProps.index]?.img_url" :alt="slotProps?.img_url" width="50" class="shadow-2" />
+                        </template>
+                    </Column>
+                    <Column field="goods_name" header="Name" style="width: 50%; min-width:200px"></Column>
+                    <Column field="goods_amt" header="Price" style="width: 10%; text-align: right">
+                        <template #body="slotProps">
+                            {{ rankData[slotProps.index]?.goods_amt }}$
+                        </template>
+                    </Column>
+                </DataTable>
             </div>
         </div>
     </div>
 </template>
+
+<script>
+import VueWordCloud from 'vuewordcloud';
+
+export default {
+    components: {
+        [VueWordCloud.name]: VueWordCloud,
+    },
+    mounted() {
+    },
+    methods: {
+    },
+    data() {
+    return {
+    };
+    },
+};
+</script>
